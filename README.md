@@ -33,7 +33,7 @@ Arquivos `.bin` e `.dat` são bases de dados proprietárias serializadas:
 |---------|----------|
 | `Itemlist.bin` / `Itemname.bin` | Definições e nomes dos itens |
 | `SkillData.bin` | Skills e atributos |
-| `MixList.bin` | Receitas de crafting |
+| `Mixlist.bin` | Receitas de crafting |
 | `MountData.bin` | Montarias e pets |
 | `object.bin` | Objetos do mundo |
 | `HeightMap.dat` / `AttributeMap.dat` | Dados de terreno *(sincronizar com o servidor)* |
