@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c '( command -v python3 >/dev/null 2>&1 && PY=python3 ) || ( command -v py >/dev/null 2>&1 && PY=\"py -3\" ) || { echo \"WARN: python3 not found. Binary asset protection disabled. Install: https://www.python.org/downloads/\"; exit 0; }; $PY -c \"import json,os,sys; f=json.loads(os.environ.get(\\\"CLAUDE_TOOL_INPUT\\\",\\\"{}\\\")); p=str(f.get(\\\"file_path\\\",\\\"\\\") if isinstance(f,dict) else \\\"\\\"); b={\\\".bin\\\",\\\".dat\\\",\\\".wyt\\\",\\\".wys\\\",\\\".msa\\\",\\\".msh\\\",\\\".trn\\\",\\\".wav\\\",\\\".mp3\\\"}; e=os.path.splitext(p)[1].lower(); sys.exit(2) if p and e in b else sys.exit(0)\" || { rc=$?; [ $rc -eq 2 ] && echo \"BLOCKED: binary asset file cannot be text-edited.\"; exit $rc; }'"
+          }
+        ]
+      }
+    ]
+  }
+}
