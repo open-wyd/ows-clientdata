@@ -16,16 +16,8 @@ def has_python3() -> bool:
 
 
 def has_bash() -> bool:
-    if has_cmd("bash"):
-        return True
-    if platform.system().lower() != "windows":
-        return False
-    from pathlib import Path
-    candidates = [
-        Path(r"C:\Program Files\Git\bin\bash.exe"),
-        Path(r"C:\Program Files (x86)\Git\bin\bash.exe"),
-    ]
-    return any(p.exists() for p in candidates)
+    # Hooks invoke `bash` directly, so it must be resolvable via PATH.
+    return has_cmd("bash")
 
 
 SYSTEM = platform.system().lower()
