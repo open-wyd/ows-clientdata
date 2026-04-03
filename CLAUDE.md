@@ -49,26 +49,41 @@ Serialized databases loaded at startup:
 ### Configuration
 `Config.ini` controls display mode, resolution, volume, and gameplay settings. Currently configured for windowed mode with classic controls.
 
+## Available Skills (PT-BR + EN)
+
+Use the skills below for targeted tasks to reduce token usage while keeping output quality high.
+
+| Skill | Use when | Keywords |
+|-------|----------|----------|
+| `wyd-navigation` (`.claude/skills/wyd-navigation/`) | Locate meshes, sounds, effects, configs, and language strings | `find mesh`, `find sound`, `find effect`, `read config`, `search WYD assets` |
+| `config-text-query` (`.claude/skills/config-text-query/`) | Query `Config.ini`, `Lang.txt`, `UI/command.txt` with minimal reads | `config key`, `lang string`, `slash command`, `resolution` |
+| `index-health-check` (`.claude/skills/index-health-check/`) | Validate `MeshList.txt` and `soundlist.txt` consistency | `audit index`, `duplicates`, `invalid lines`, `broken path` |
+| `asset-inventory` (`.claude/skills/asset-inventory/`) | Directory size/count audit and broken-reference checks | `asset inventory`, `directory size`, `broken references` |
+
+**Search rule:** always use `grep_search` before `read_file`. For assets, prefer indexes (`Mesh/MeshList.txt`, `Sound/soundlist.txt`) over large directory listing.
+
+**Output language:** final user-facing responses should stay in PT-BR unless explicitly requested otherwise.
+
 ## Claude Automation
 
-### Dependência
+### Dependency
 
-- **Obrigatório**: `python3` — usado pelos hooks e pelo validador de ambiente.
+- **Required**: `python3` - used by hooks and by the environment validator.
 
-O hook em `.claude/settings.json` bloqueia edição acidental de arquivos binários (`.bin`, `.dat`, `.wyt`, `.wys`, `.msa`, `.msh`, `.trn`, `.wav`, `.mp3`). Ele tenta `python3` e, se não encontrar, usa `py -3` como fallback no Windows.
+The hook in `.claude/settings.json` blocks accidental edits to binary asset files (`.bin`, `.dat`, `.wyt`, `.wys`, `.msa`, `.msh`, `.trn`, `.wav`, `.mp3`). It tries `python3` first and uses `py -3` as a Windows fallback.
 
-### Validar ambiente
+### Validate Environment
 
 ```bash
 python3 .claude/scripts/validate-claude-env.py
 ```
 
-No Windows, se `python3` não estiver no PATH:
+On Windows, if `python3` is not in PATH:
 ```cmd
 py -3 .claude/scripts/validate-claude-env.py
 ```
 
-Se Python não estiver instalado, o script de validação orienta a instalação.
+If Python is not installed, the validation script provides installation guidance.
 
 ## File Format Notes
 
